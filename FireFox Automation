@@ -1,0 +1,80 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.firefox.internal.ProfilesIni;
+import org.openqa.selenium.remote.DesiredCapabilities;
+
+
+  // running system installed FireFox 57.0.4 (64-bit) [Testing date : 10 Mar 2018]
+	// requires : selenium-server-standalone-3.10.0.jar,
+	// client-combined-3.10.0.jar & geckodriver.exe
+
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		System.out.println("Hello:");
+    
+    // run any one of bellow function you need.
+    
+    //runfirefox(); 
+    //runfirefoxDesiredcapabilities();
+		runfirefoxDefaultProfile();
+    
+	}
+
+	
+	protected static void runfirefox() {
+		System.setProperty("webdriver.gecko.driver",
+				"C:\\Users\\jAVA_USER\\Desktop\\Selenium-Test-Resouces\\geckodriver.exe");
+		WebDriver driver = new FirefoxDriver();
+		driver.get("http://www.google.com");
+		WebElement webElement = driver.findElement(By.id("lst-ib"));
+		webElement.sendKeys("Hello");
+		webElement.sendKeys(Keys.ENTER);
+
+	}
+
+	protected static void runfirefoxDesiredcapabilities() {
+
+		FirefoxProfile profile = new FirefoxProfile();
+		profile.setPreference("network.proxy.type", 0);
+		DesiredCapabilities capabilities = new DesiredCapabilities();
+		capabilities.setCapability(FirefoxDriver.PROFILE, profile);
+
+		System.setProperty("webdriver.gecko.driver",
+				"C:\\Users\\jAVA_USER\\Desktop\\Selenium-Test-Resouces\\geckodriver.exe");
+
+		WebDriver driver = new FirefoxDriver(capabilities);
+
+		driver.get("http://www.google.com");
+		WebElement webElement = driver.findElement(By.id("lst-ib"));
+		webElement.sendKeys("Hello");
+		webElement.sendKeys(Keys.ENTER);
+
+	}
+
+	protected static void runfirefoxDefaultProfile() {
+
+		ProfilesIni profile = new ProfilesIni();
+		FirefoxProfile myprofile = profile.getProfile("default");
+		myprofile.setPreference("network.proxy.type", 0);
+		DesiredCapabilities capabilities = new DesiredCapabilities();
+		capabilities.setCapability(FirefoxDriver.PROFILE, myprofile);
+
+		System.setProperty("webdriver.gecko.driver",
+				"C:\\Users\\jAVA_USER\\Desktop\\Selenium-Test-Resouces\\geckodriver.exe");
+
+		WebDriver driver = new FirefoxDriver(capabilities);
+
+		driver.get("http://www.google.com");
+		WebElement webElement = driver.findElement(By.id("lst-ib"));
+		webElement.sendKeys("Hello");
+		webElement.sendKeys(Keys.ENTER);
+
+	}
+
+}
